@@ -7,6 +7,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>mytsite02</module>
+		<module>mysite02</module>
 	</modules>
 </project>
