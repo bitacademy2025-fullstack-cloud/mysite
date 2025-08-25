@@ -1,10 +1,16 @@
 package com.bit2025.mysite.controller;
 
+import java.io.IOException;
+import java.util.List;
+
+import com.bit2025.mysite.dao.GuestbookDao;
+import com.bit2025.mysite.vo.GuestbookVo;
+
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class GuestbookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
