@@ -42,7 +42,7 @@
 						<li>
 							<table>
 								<tr>
-									<td>[count - index++]</td>
+									<td>[<%=count - index++%>]</td>
 									<td><%=vo.getName() %></td>
 									<td><%=vo.getRegDate() %></td>
 									<td><a href="<%=request.getContextPath() %>/guestbook?a=deleteform&id=<%=vo.getId() %>">삭제</a></td>
