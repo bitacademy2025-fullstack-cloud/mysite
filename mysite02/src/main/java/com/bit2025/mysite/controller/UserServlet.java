@@ -56,6 +56,52 @@ public class UserServlet extends HttpServlet {
 			session.setAttribute("authUser", authUser);
 			
 			response.sendRedirect(request.getContextPath());
+		} else if("logout".equals(action)) {
+			HttpSession session = request.getSession();
+			if(session != null) {
+				// 로그아웃 처리
+				session.removeAttribute("authUser");
+				session.invalidate();
+			}
+			
+			response.sendRedirect(request.getContextPath());
+		} else if("updateform".equals(action)) {
+			// Access Control
+			HttpSession session = request.getSession();
+			if(session == null) {
+				response.sendRedirect(request.getContextPath());
+				return;
+			}
+			UserVo authUser = (UserVo)session.getAttribute("authUser");
+			if(authUser == null) {
+				response.sendRedirect(request.getContextPath());
+				return;
+			}
+			///////////////////////////
+			
+			Long id = authUser.getId();
+			// UserVo userVo = new UserDao().findById(id);
+			// request.setAttribute("userVo", userVo);
+
+			request.getRequestDispatcher("/WEB-INF/views/user/updateform.jsp").forward(request, response);
+		} else if("update".equals(action)) {
+			// Access Control
+			HttpSession session = request.getSession();
+			if(session == null) {
+				response.sendRedirect(request.getContextPath());
+				return;
+			}
+			UserVo authUser = (UserVo)session.getAttribute("authUser");
+			if(authUser == null) {
+				response.sendRedirect(request.getContextPath());
+				return;
+			}
+			///////////////////////////
+			
+			String name = request.getParameter("name");
+			String password = request.getParameter("parameter");
+			String gender = request.getParameter("gender");
+
 		} else {
 			response.sendRedirect(request.getContextPath());
 		}
