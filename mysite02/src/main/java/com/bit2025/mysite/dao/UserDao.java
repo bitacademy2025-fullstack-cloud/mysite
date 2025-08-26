@@ -46,16 +46,12 @@ public class UserDao {
 
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				Long id = rs.getLong(1);
-				String name = rs.getString(2);
-				String email = rs.getString(3);
-				String gender = rs.getString(4);
-				
 				result = new UserVo();
-				result.setId(id);
-				result.setName(name);
-				result.setEmail(email);
-				result.setGender(gender);
+				
+				result.setId(rs.getLong(1));
+				result.setName(rs.getString(2));
+				result.setEmail(rs.getString(3));
+				result.setGender(rs.getString(4));
 			}
 			rs.close();
 		} catch (SQLException e) {
