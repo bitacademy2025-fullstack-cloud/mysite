@@ -80,8 +80,8 @@ public class UserServlet extends HttpServlet {
 			///////////////////////////
 			
 			Long id = authUser.getId();
-			// UserVo userVo = new UserDao().findById(id);
-			// request.setAttribute("userVo", userVo);
+			UserVo userVo = new UserDao().findById(id);
+			request.setAttribute("userVo", userVo);
 
 			request.getRequestDispatcher("/WEB-INF/views/user/updateform.jsp").forward(request, response);
 		} else if("update".equals(action)) {
@@ -108,9 +108,11 @@ public class UserServlet extends HttpServlet {
 			vo.setPassword(password);
 			vo.setGender(gender);
 			
-			// new UserDao().update(vo);
-			
-			// 업데이트 폼으로 리다이렉트
+			new UserDao().update(vo);
+			authUser.setName(name);
+		
+			response.sendRedirect(request.getContextPath() + "/user?a=updateform&result=success");
+
 		} else {
 			response.sendRedirect(request.getContextPath());
 		}
@@ -121,3 +123,4 @@ public class UserServlet extends HttpServlet {
 	}
 
 }
+
