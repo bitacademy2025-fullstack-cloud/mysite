@@ -101,7 +101,16 @@ public class UserServlet extends HttpServlet {
 			String name = request.getParameter("name");
 			String password = request.getParameter("parameter");
 			String gender = request.getParameter("gender");
-
+			
+			UserVo vo = new UserVo();
+			vo.setId(authUser.getId());
+			vo.setName(name);
+			vo.setPassword(password);
+			vo.setGender(gender);
+			
+			// new UserDao().update(vo);
+			
+			// 업데이트 폼으로 리다이렉트
 		} else {
 			response.sendRedirect(request.getContextPath());
 		}
