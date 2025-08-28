@@ -30,6 +30,8 @@
 						</tr>
 					</table>
 				</form>
+				
+				<h2>메세지를 남겨 주세요.</h2>
 				<ul>
 					<c:set var="count" value="${fn:length(list) }" />
 					<c:forEach items="${list }" var="vo" varStatus="status">
