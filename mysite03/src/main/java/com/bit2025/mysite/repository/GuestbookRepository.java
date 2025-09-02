@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.bit2025.mysite.vo.GuestbookVo;
 
-public class GuestbookDao {
+public class GuestbookRepository {
 
 	public List<GuestbookVo> findAll() {
 		List<GuestbookVo> result = new ArrayList<>();
