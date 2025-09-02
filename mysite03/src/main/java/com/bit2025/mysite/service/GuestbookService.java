@@ -11,7 +11,7 @@ import com.bit2025.mysite.vo.GuestbookVo;
 @Service
 public class GuestbookService {
 	@Autowired
-	private GuestbookRepository guetbookRepository;
+	private GuestbookRepository guestbookRepository;
 	
 	public List<GuestbookVo> getMessageList() {
 		return guestbookRepository.findAll();

@@ -15,7 +15,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="guestbook">
-				<form action="{pageContext.request.contextPath }/guestbook/add" method="post">
+				<form action="${pageContext.request.contextPath }/guestbook/add" method="post">
 					<table>
 						<tr>
 							<td>이름</td><td><input type="text" name="name"></td>
@@ -30,7 +30,6 @@
 					</table>
 				</form>
 				
-				<h2>메세지를 남겨 주세요.</h2>
 				<ul>
 					<c:set var="count" value="${fn:length(list) }" />
 					<c:forEach items="${list }" var="vo" varStatus="status">
@@ -40,7 +39,7 @@
 									<td>[${count-status.index }]</td>
 									<td>${vo.name }</td>
 									<td>${vo.regDate }</td>
-									<td><a href="${pageContext.request.contextPath }/guestbook?a=deleteform&id=${vo.id }">삭제</a></td>
+									<td><a href="${pageContext.request.contextPath }/guestbook/delete/${vo.id }">삭제</a></td>
 								</tr>
 								<tr>
 									<td colspan=4>
