@@ -31,7 +31,7 @@ public class GuestbookController {
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id) {
-		return "/guestbook/delete";
+		return "guestbook/delete";
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.POST)
