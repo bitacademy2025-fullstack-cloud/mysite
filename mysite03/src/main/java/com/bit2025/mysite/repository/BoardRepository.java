@@ -1,14 +1,15 @@
-package mysite.repository;
+package com.bit2025.mysite.repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import mysite.vo.BoardVo;
+import com.bit2025.mysite.vo.BoardVo;
 
 @Repository
 public class BoardRepository {

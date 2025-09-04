@@ -1,6 +1,7 @@
-package mysite.controller;
+package com.bit2025.mysite.controller;
 
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,12 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import mysite.security.Auth;
-import mysite.security.AuthUser;
-import mysite.service.BoardService;
-import mysite.vo.BoardVo;
-import mysite.vo.UserVo;
-import mysite.web.util.WebUtil;
+import com.bit2025.mysite.service.BoardService;
+import com.bit2025.mysite.vo.BoardVo;
+import com.bit2025.mysite.vo.UserVo;
+
 
 @Controller
 @RequestMapping("/board")

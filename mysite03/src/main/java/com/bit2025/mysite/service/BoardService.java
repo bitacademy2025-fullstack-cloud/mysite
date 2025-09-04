@@ -1,4 +1,4 @@
-package mysite.service;
+package com.bit2025.mysite.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,8 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mysite.repository.BoardRepository;
-import mysite.vo.BoardVo;
+import com.bit2025.mysite.repository.BoardRepository;
+import com.bit2025.mysite.vo.BoardVo;
+
 
 @Service
 public class BoardService {
