@@ -15,6 +15,8 @@ import com.bit2025.mysite.service.BoardService;
 import com.bit2025.mysite.vo.BoardVo;
 import com.bit2025.mysite.vo.UserVo;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/board")
@@ -47,55 +49,94 @@ public class BoardController {
 	
 	@RequestMapping("/delete/{id}")
 	public String delete(
-		@AuthUser UserVo authUser,
+		HttpSession session, 
 		@PathVariable("id") Long boardId,
 		@RequestParam(value="p", required=true, defaultValue="1") Integer page,
-		@RequestParam(value="kwd", required=true, defaultValue="") String keyword) {		
+		@RequestParam(value="kwd", required=true, defaultValue="") String keyword) {
+		// 접근제어
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		///////////////////////////////////////////////////////////
+
 		boardService.deleteContents(boardId, authUser.getId());
-		return "redirect:/board?p=" + page + "&kwd=" + WebUtil.encodeURL(keyword, "UTF-8");
+		return "redirect:/board?p=" + page + "&kwd=" + keyword;
 	}
 	
-	@Auth
 	@RequestMapping("/modify/{id}")	
-	public String modify(@AuthUser UserVo authUser, @PathVariable("id") Long id, Model model) {
+	public String modify(HttpSession session, @PathVariable("id") Long id, Model model) {
+		// 접근제어
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		///////////////////////////////////////////////////////////
+		
 		BoardVo boardVo = boardService.getContents(id, authUser.getId());
 		model.addAttribute("boardVo", boardVo);
 		return "board/modify";
 	}
 
-	@Auth
 	@RequestMapping(value="/modify", method=RequestMethod.POST)	
 	public String modify(
-		@AuthUser UserVo authUser, 
+		HttpSession session, 
 		BoardVo boardVo,
 		@RequestParam(value="p", required=true, defaultValue="1") Integer page,
-		@RequestParam(value="kwd", required=true, defaultValue="") String keyword) {		
+		@RequestParam(value="kwd", required=true, defaultValue="") String keyword) {
+		// 접근제어
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		///////////////////////////////////////////////////////////
+		
 		boardVo.setUserId(authUser.getId());
 		boardService.modifyContents(boardVo);
 		return "redirect:/board/view/" + boardVo.getId() + 
 				"?p=" + page + 
-				"&kwd=" + WebUtil.encodeURL( keyword, "UTF-8" );
+				"&kwd=" + keyword;
 	}
 
 	@RequestMapping(value="/write", method=RequestMethod.GET)	
-	public String write() {
+	public String write(HttpSession session) {
+		// 접근제어
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		///////////////////////////////////////////////////////////
+		
 		return "board/write";
 	}
 
 	@RequestMapping(value="/write", method=RequestMethod.POST)	
 	public String write(
-		@AuthUser UserVo authUser,
+		HttpSession session,
 		@ModelAttribute BoardVo boardVo,
 		@RequestParam(value="p", required=true, defaultValue="1") Integer page,
 		@RequestParam(value="kwd", required=true, defaultValue="") String keyword) {
-
+		// 접근제어
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		///////////////////////////////////////////////////////////
+		
 		boardVo.setUserId(authUser.getId());
 		boardService.addContents(boardVo);
-		return	"redirect:/board?p=" + page + "&kwd=" + WebUtil.encodeURL(keyword, "UTF-8");
+		return	"redirect:/board?p=" + page + "&kwd=" + keyword;
 	}
 
 	@RequestMapping(value="/reply/{id}")	
-	public String reply(@PathVariable("id") Long id, Model model) {
+	public String reply(HttpSession session, @PathVariable("id") Long id, Model model) {
+		// 접근제어
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		///////////////////////////////////////////////////////////
+			
 		BoardVo boardVo = boardService.getContents(id);
 		boardVo.setOrderNo(boardVo.getOrderNo() + 1);
 		boardVo.setDepth(boardVo.getDepth() + 1);

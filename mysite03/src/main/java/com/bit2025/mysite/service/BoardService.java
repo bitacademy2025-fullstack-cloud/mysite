@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.bit2025.mysite.repository.BoardRepository;
 import com.bit2025.mysite.vo.BoardVo;
 
-
 @Service
 public class BoardService {
 	private static final int LIST_SIZE = 5; //리스팅되는 게시물의 수

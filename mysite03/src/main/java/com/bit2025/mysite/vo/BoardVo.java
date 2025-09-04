@@ -1,4 +1,4 @@
-package mysite.vo;
+package com.bit2025.mysite.vo;
 
 public class BoardVo {
 	private Long Id;
