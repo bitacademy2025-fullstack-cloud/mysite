@@ -24,10 +24,10 @@ public class BoardRepository {
 		try (
 			Connection conn = dataSource.getConnection();
 			PreparedStatement pstmt1 = conn.prepareStatement(
-				"insert into board values (null, ?, ?, 0, now(), (select ifnull(max(g_no), 0) + 1 from board a), 1, 0, ?"
+				"insert into board values (null, ?, ?, 0, now(), (select ifnull(max(g_no), 0) + 1 from board a), 1, 0, ?)"
 			); 	
 			PreparedStatement pstmt2 = conn.prepareStatement(
-				"insert into board values (null, ?, ?, 0, now(), ?, ?, ?, ?"
+				"insert into board values (null, ?, ?, 0, now(), ?, ?, ?, ?)"
 			); 	
 		) {
 			if(boardVo.getGroupNo() == null) {
@@ -87,14 +87,14 @@ public class BoardRepository {
 			ResultSet rs = null;
 			
 			if("".equals(keyword)) {
-				pstmt1.setInt(1,  (page - 1) * size);
+				pstmt1.setInt(1, (page - 1) * size);
 				pstmt1.setInt(2, size);
 
 				rs = pstmt1.executeQuery();
 			} else {
 				pstmt2.setString(1, "%" + keyword + "%");
 				pstmt2.setString(2, "%" + keyword + "%");
-				pstmt2.setInt(3,  (page - 1) * size);
+				pstmt2.setInt(3, (page - 1) * size);
 				pstmt2.setInt(4, size);
 
 				rs = pstmt2.executeQuery();
@@ -285,7 +285,7 @@ public class BoardRepository {
 				"select count(*) from board"
 			);
 			PreparedStatement pstmt2 = conn.prepareStatement(
-				"select count(*) from board where title like ? or contents like ?)"
+				"select count(*) from board where title like ? or contents like ?"
 			);
 		) {
 			ResultSet rs = null;

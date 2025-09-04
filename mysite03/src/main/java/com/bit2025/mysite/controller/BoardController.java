@@ -34,7 +34,6 @@ public class BoardController {
 
 		// model.addAllAttributes(map);
 		model.addAttribute("map", map);
-		
 		model.addAttribute("keyword", keyword);
 		
 		return "board/index";
