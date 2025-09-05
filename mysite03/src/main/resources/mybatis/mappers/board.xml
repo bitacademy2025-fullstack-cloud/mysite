@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<!-- 
+		X map.put("keyword", "%" + keyword + "%");
+		O map.put("keyword", keyword);
+		sqlSession.selectList("search", map);
+	 -->
+	<select id="search" resultType="boardvo" parameterType="map">
+		<![CDATA[
+			select a.id,
+			       a.title,
+			       a.hit,
+			       date_format(a.reg_date, '%Y-%m-%d %p %h:%i:%s') as regDate,
+			       a.depth,
+			       b.name as userName,
+			       a.user_id as userId
+			  from board a, user b
+		     where a.user_id = b.id
+		       and (title like '%${keyword}%' or contents like '%${keyword}%')
+		  order by g_no desc, o_no asc
+		]]>
+	</select>
+	
+	<select id="totalCount" resultType="integer" parameterType="string">
+		<choose>
+			<when test='_parameter == ""'>
+				<![CDATA[
+				select count(*) from board 
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+				select count(*)
+			      from board 
+				 where title like '%${_parameter}%' or contents like '%${_parameter}%')
+				]]>
+			</otherwise>
+		</choose>
+	</select>	
+		
+</mapper>
