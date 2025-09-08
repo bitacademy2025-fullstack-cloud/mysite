@@ -20,7 +20,7 @@
 			</when>
 			<otherwise>
 				<![CDATA[
-				insert
+				inser
 				  into board
 				values (null,
 						#{title },
