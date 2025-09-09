@@ -52,7 +52,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		String roleAuthUser = authUser.getRole();
 		
 		// authUser의 role과 권한 비교
-		// authUser(role = 'ADMIN')  @Auth(role="USER"), @Auth(role=ADMIN")인 핸들러에 접근 가능
+		// authUser(role = 'ADMIN')인 경우는 @Auth(role="USER"), @Auth(role=ADMIN")인 핸들러에 접근 가능
 		// authUser(role = 'USER')인 경우는 @Auth(role="USER")인 핸들러에만 접근 가능
 		
 		return true;
