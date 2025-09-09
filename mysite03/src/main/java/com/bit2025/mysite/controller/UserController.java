@@ -3,16 +3,12 @@ package com.bit2025.mysite.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.bit2025.mysite.security.Auth;
 import com.bit2025.mysite.security.AuthUser;
 import com.bit2025.mysite.service.UserService;
 import com.bit2025.mysite.vo.UserVo;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")
@@ -42,24 +38,6 @@ public class UserController {
 		return "user/login";
 	}
 
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@ModelAttribute UserVo userVo, HttpSession session) {
-		UserVo authUser = userService.getUser(userVo);
-		if(authUser == null) {
-			return "user/login";
-		}
-		
-		session.setAttribute("authUser", authUser);
-		return "redirect:/";
-	}
-	
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		session.removeAttribute("authUser");
-		session.invalidate();
-		return "redirect:/";
-	}
-
 	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(@AuthUser UserVo authUser, Model model) {
@@ -80,5 +58,4 @@ public class UserController {
 		
 		return "redirect:/user/update";
 	}
-	
 }
