@@ -9,12 +9,16 @@ import com.bit2025.mysite.security.Auth;
 @RequestMapping("/admin")
 @Auth(role="ADMIN")
 public class AdminController {
-
+	
 	@RequestMapping({"", "/"})
 	public String main() {
 		return "admin/main";
 	}
 
+	public String mainUpdate() {
+		return "";
+	}
+	
 	@RequestMapping("/guestbook")
 	public String guestbook() {
 		return "admin/guestbook";
