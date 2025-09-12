@@ -1,6 +1,8 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt"%>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -38,10 +40,17 @@ $(function() {
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="user">
-
+				
 				<form id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath }/user/join">
 					<label class="block-label" for="name">이름</label>
-					<input id="name" name="name" type="text" value="">
+					<input id="name" name="name" type="text" value="${userVo.name }">
+					<p style="padding: 0; text-align:left; color: #f00">
+						<spring:hasBindErrors name="userVo">
+							<c:if test='${errors.hasFieldErrors("name") }'>
+								<spring:message code='${errors.getFieldError("name").codes[0] }' />
+							</c:if>
+						</spring:hasBindErrors>
+					</p>
 
 					<label class="block-label" for="email">이메일</label>
 					<input id="email" name="email" type="text" value="">
