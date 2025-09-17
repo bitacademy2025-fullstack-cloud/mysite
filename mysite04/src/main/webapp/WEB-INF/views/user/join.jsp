@@ -24,16 +24,7 @@ $(function() {
 			type: "get",
 			dataType: "json",
 			success: function(response) {
-				/*
-				response format
-				
-				{
-					result: "fail"             or "success"
-					data:    null              or ... 
-				    message: ".........."	   or null
-				}
-				
-				*/
+				console.log(response);
 				
 				if(response.result == "fail") {
 					console.error(response.message);
