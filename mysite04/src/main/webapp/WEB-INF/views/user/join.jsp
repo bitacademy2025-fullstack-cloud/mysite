@@ -20,11 +20,27 @@ $(function() {
 		}
 		
 		$.ajax({
-			url: "/mysite03/api/user/checkemail?email=" + email,
+			url: "${pageContext.request.contextPath }/api/user/checkemail?email=" + email,
 			type: "get",
 			dataType: "json",
 			success: function(response) {
-				if(response.exist){
+				/*
+				response format
+				
+				{
+					result: "fail"             or "success"
+					data:    null              or ... 
+				    message: ".........."	   or null
+				}
+				
+				*/
+				
+				if(response.result == "fail") {
+					console.error(response.message);
+					return;
+				}
+					
+				if(response.data){
 					alert("이메일이 존재합니다. 다른 이메일을 사용해 주세요.");
 					$("#email").val("");
 					$("#email").focus();
@@ -33,6 +49,9 @@ $(function() {
 				
 				$("#check-img").show();
 				$("#check-button").hide();
+			},
+			error: function(xhr, status, err) {
+				console.error(err);
 			}
 		});
 	});
