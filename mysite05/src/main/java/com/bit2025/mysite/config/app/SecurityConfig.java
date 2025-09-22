@@ -58,12 +58,23 @@ public class SecurityConfig {
         		});
         		
         })
+        .logout(logout -> {
+        	logout
+        		.logoutUrl("/user/logout")
+        		.logoutSuccessUrl("/");
+        })
     	.authorizeHttpRequests(authorizeRequest -> {
     		/* ACL */
     		authorizeRequest
-				.requestMatchers(new RegexRequestMatcher("^/admin/?.*$", null)).authenticated()
-    			.requestMatchers(new RegexRequestMatcher("^/user/update$", null)).authenticated()
-    			.requestMatchers(new RegexRequestMatcher("^/board/?(write|delete|modify|reply).*$", null)).authenticated()
+				.requestMatchers(new RegexRequestMatcher("^/admin/?.*$", null))
+				.hasRole("ADMIN")
+    			
+				.requestMatchers(new RegexRequestMatcher("^/user/update$", null))
+				.hasAnyRole("USER", "ADMIN")
+    			
+				.requestMatchers(new RegexRequestMatcher("^/board/?(write|delete|modify|reply).*$", null))
+				.hasAnyRole("USER", "ADMIN")
+				
 				.anyRequest().permitAll();
 
     	});
