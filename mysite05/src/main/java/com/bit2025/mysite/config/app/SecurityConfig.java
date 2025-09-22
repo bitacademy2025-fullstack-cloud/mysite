@@ -1,5 +1,7 @@
 package com.bit2025.mysite.config.app;
 
+import java.io.IOException;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,15 +10,21 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 import com.bit2025.mysite.repository.UserRepository;
 import com.bit2025.mysite.security.UserDetailsServiceImpl;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -36,7 +44,18 @@ public class SecurityConfig {
         		.loginProcessingUrl("/user/auth")
         		.usernameParameter("email")
         		.passwordParameter("password")
-        		.defaultSuccessUrl("/");
+        		.defaultSuccessUrl("/")
+        		// 파라미터와 함께 리다이렉트 응답
+        		// .failureUrl("/user/login?result=fail")
+        		.failureHandler(new AuthenticationFailureHandler() {
+					@Override
+					public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+						request.setAttribute("email", request.getParameter("email"));
+						request
+							.getRequestDispatcher("/user/login")
+							.forward(request, response);
+					}
+        		});
         		
         })
     	.authorizeHttpRequests(authorizeRequest -> {
