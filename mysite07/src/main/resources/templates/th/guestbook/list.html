@@ -35,7 +35,7 @@
 								<td><a th:href="@{(|/guestbook/delete/${vo.id}|)}">삭제</a></td>
 							</tr>
 							<tr>
-								<td colspan=4 th:utext='${#strings.replace(vo.message, "&#10;", "<br>")}'></td>
+								<td colspan=4 th:text='${vo.message}' style="white-space:pre-line"></td>
 							</tr>
 						</table>
 						<br>
