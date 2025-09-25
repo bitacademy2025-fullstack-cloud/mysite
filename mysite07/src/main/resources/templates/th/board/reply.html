@@ -11,9 +11,9 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post" th:object="${boardVo}" th:action="@{/board/write}">
-					<input type="hidden" th:feild="*{groupNo}">
-					<input type="hidden" th:feild="*{orderNo}">
-					<input type="hidden" th:feild="*{depth}">
+					<input type="hidden" th:field="*{groupNo}">
+					<input type="hidden" th:field="*{orderNo}">
+					<input type="hidden" th:field="*{depth}">
 					<input type="hidden" name="p" th:value="${param.p}" />
 					<input type="hidden" name="kwd" th:value="${param.kwd}" />
 					<table class="tbl-ex">
