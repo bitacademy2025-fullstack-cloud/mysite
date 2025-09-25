@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div id="container">
-		<th:block th:include="includes/header"></th:block>
+		<th:block th:include="th/includes/header"></th:block>
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post" th:action="@{/board/write}">
@@ -33,8 +33,9 @@
 				</form>				
 			</div>
 		</div>
-		<th:block th:include="includes/navigation"></th:block>
-		<th:block th:include="includes/footer"></th:block>
+		<th:block th:include="th/includes/navigation"></th:block>
+		<th:block th:include="th/includes/footer"></th:block>
 	</div>
 </body>
 </html>
+
